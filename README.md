@@ -5,7 +5,7 @@
 ### Step-by-Step Guide
 
 1. **Create a Test Folder**
-    - Create a new directory to house both the React component library and the React template project.
+    - Create a new directory for both the React component library and the React template project.
 
     ```bash
     mkdir test-folder
