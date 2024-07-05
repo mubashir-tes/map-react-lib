@@ -1,0 +1,27 @@
+# Source files
+src
+
+# Build configuration
+rollup.config.mjs
+
+# Node modules
+node_modules
+
+# Git specific files
+.git
+.gitignore
+
+# Log files
+*.log
+
+# Lock files
+package-lock.json
+
+# MacOS specific files
+.DS_Store
+
+# Environment configuration
+.env*
+
+# Temporary files created by text editors
+~*
