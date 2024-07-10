@@ -18,7 +18,7 @@
    - Install the necessary dependencies for your library and example project.
 
    ```bash
-   npm install:example && npm install:lib-container
+   npm run install:example && npm run install:lib-container
    ```
 
 3. **Build the Library**
