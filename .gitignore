@@ -12,6 +12,7 @@ coverage
 build
 dist
 package-lock.json
+yarn.lock
 
 # misc
 .DS_Store

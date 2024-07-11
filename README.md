@@ -13,34 +13,26 @@
    cd map-react-lib
    ```
 
-2. **Install Dependencies**
-
-   - Install the necessary dependencies for your library and example project.
-
-   ```bash
-   npm run install:example && npm run install:lib-container
-   ```
-
-3. **Build the Library**
+2. **Build the Library**
 
    - Build your library to generate the necessary files for usage.
 
    ```bash
-   npm run build
+   yarn build
    ```
 
-4. **Watch the Library**
+3. **Watch the Library**
 
    - Build your library to generate the necessary files for usage.
 
    ```bash
-   npm run dev
+   yarn dev
    ```
 
-5. **Start the React Example Template Project**
+4. **Start the React Example Template Project**
 
    - Run the React template project to start the development server.
 
    ```bash
-   npm run start
+   yarn start
    ```
