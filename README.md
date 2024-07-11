@@ -12,8 +12,10 @@
    git clone https://github.com/mubashir-tes/map-react-lib.git
    cd map-react-lib
    ```
-
-2. **Build the Library**
+2. **Install yarn globally package**
+   - npm install -g yarn
+   
+3. **Build the Library**
 
    - Build your library to generate the necessary files for usage.
 
@@ -21,7 +23,7 @@
    yarn build
    ```
 
-3. **Watch the Library**
+4. **Watch the Library**
 
    - Build your library to generate the necessary files for usage.
 
@@ -29,7 +31,7 @@
    yarn dev
    ```
 
-4. **Start the React Example Template Project**
+5. **Start the React Example Template Project**
 
    - Run the React template project to start the development server.
 
