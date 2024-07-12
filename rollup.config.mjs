@@ -4,6 +4,7 @@ import image from "@rollup/plugin-image";
 import json from "@rollup/plugin-json";
 import resolve from "@rollup/plugin-node-resolve";
 import replaceStr from "@rollup/plugin-replace";
+import postcssUrl from "postcss-url";
 import terser from "@rollup/plugin-terser";
 import url from "@rollup/plugin-url";
 import { createFilter } from "@rollup/pluginutils";
@@ -73,36 +74,36 @@ const config = {
       fileName: "[name][hash][extname]",
     }),
     terser({ compress: true }),
-    {
-      name: "inline-css-scss",
-      transform(code, id) {
-        if (id.includes("node_modules")) return { code, map: null };
-        const filter = createFilter(["**/*.css", "**/*.scss"]);
-        if (!filter(id)) return { code, map: null };
-        if (!id.endsWith(".css") && !id.endsWith(".scss"))
-          return { map: null, code };
-        const regex = /url\("(.+?)"\)/g;
-        let match;
-        const baseDir = "src";
-        while ((match = regex.exec(code)) !== null) {
-          const imageUrl = match[1];
-          const imagePath = path.join(baseDir, imageUrl);
-          let dataUrl;
-          try {
-            dataUrl = encodeImage(imagePath);
-          } catch (error) {
-            this.error(`failed to inline ${imageUrl} at ${imagePath}`);
-          }
-          code = code.replace(imageUrl, `${dataUrl}`);
-        }
-        return {
-          map: null,
-          code,
-        };
-      },
-    },
+    // {
+    //   name: "inline-css-scss",
+    //   transform(code, id) {
+    //     if (id.includes("node_modules")) return { code, map: null };
+    //     const filter = createFilter(["**/*.css", "**/*.scss"]);
+    //     if (!filter(id)) return { code, map: null };
+    //     if (!id.endsWith(".css") && !id.endsWith(".scss"))
+    //       return { map: null, code };
+    //     const regex = /url\("(.+?)"\)/g;
+    //     let match;
+    //     const baseDir = "src";
+    //     while ((match = regex.exec(code)) !== null) {
+    //       const imageUrl = match[1];
+    //       const imagePath = path.join(baseDir, imageUrl);
+    //       let dataUrl;
+    //       try {
+    //         dataUrl = encodeImage(imagePath);
+    //       } catch (error) {
+    //         this.error(`failed to inline ${imageUrl} at ${imagePath}`);
+    //       }
+    //       code = code.replace(imageUrl, `${dataUrl}`);
+    //     }
+    //     return {
+    //       map: null,
+    //       code,
+    //     };
+    //   },
+    // },
     postcssPlugin({
-      plugins: [autoprefixer()],
+      plugins: [autoprefixer(), postcssUrl({ url: "inline" })],
       extract: "index.scss",
       minimize: true,
       // sourceMap: true,
