@@ -1,0 +1,14 @@
+.create-modal {
+  background: url("./assets/logo512.png");
+  border-radius: 20px;
+  border: 1px solid black;
+}
+.create-btn {
+  padding: 30px;
+  background: url("./assets/view.svg");
+}
+$primary-color: #3498db;
+body {
+  background-color: $primary-color;
+  font-family: Arial, sans-serif;
+}
