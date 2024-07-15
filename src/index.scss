@@ -1,7 +1,18 @@
 .create-modal {
-  background: url("./assets/logo512.png");
   border-radius: 20px;
   border: 1px solid black;
+}
+.png-file {
+  background: url("./assets/logo512.png");
+}
+.svg-file {
+  background: url("./assets/view.svg");
+}
+.jpg-file {
+  background: url("./assets/jpg_44-2.jpg");
+}
+.jpeg-file {
+  background: url("./assets/images.jpeg");
 }
 .create-btn {
   padding: 30px;

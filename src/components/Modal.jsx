@@ -1,5 +1,8 @@
 import { Button, Modal } from "antd";
 import React, { useState } from "react";
+import jpegFile from "../assets/images.jpeg";
+import jpgFile from "../assets/jpg_44-2.jpg";
+import pngFile from "../assets/logo512.png";
 import svgFile from "../assets/view.svg";
 const CreateModal = () => {
   const [open, setOpen] = useState(false);
@@ -27,6 +30,10 @@ const CreateModal = () => {
       <Button type="primary" onClick={showModal} className="create-btn">
         Open Modal with async logic
       </Button>
+      <Button className="png-file">Open Modal with async logic</Button>
+      <Button className="svg-file">Open Modal with async logic</Button>
+      <Button className="jpg-file">Open Modal with async logic</Button>
+      <Button className="jpeg-file">Open Modal with async logic</Button>
       <Modal
         title="Title"
         open={open}
@@ -36,6 +43,9 @@ const CreateModal = () => {
       >
         <div className="create-modal">
           <img src={svgFile} alt="" />
+          <img src={pngFile} alt="" />
+          <img src={jpegFile} alt="" />
+          <img src={jpgFile} alt="" />
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum
           voluptates maiores magnam provident quasi saepe ut fugiat vel facere
           odit. Vero nobis at praesentium beatae nesciunt maxime odit architecto

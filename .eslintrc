@@ -1,0 +1,4 @@
+{
+  "extends": ["react-app", "plugin:jsx-ally/recommended", "react-app/jest"],
+  "plugins": ["jsx-ally", "promise"]
+}
