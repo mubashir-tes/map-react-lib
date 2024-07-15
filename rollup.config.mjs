@@ -55,14 +55,13 @@ const config = {
       include: [
         "**/*.svg",
         "**/*.png",
-        "**/*.jpg",
+        "**/*.jp(e)?g",
         "**/*.gif",
         "**/*.woff",
         "**/*.woff2",
         "**/*.ttf",
       ],
       limit: 8192,
-      emitFiles: true,
       fileName: "[name][hash][extname]",
     }),
     terser({
