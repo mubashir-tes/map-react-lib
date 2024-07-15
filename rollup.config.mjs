@@ -42,6 +42,7 @@ const config = {
       babelHelpers: "bundled",
       presets: ["@babel/preset-react"],
       extensions: [".js", ".jsx"],
+      exclude: /node_modules/,
     }),
     replaceStr({
       preventAssignment: true,
