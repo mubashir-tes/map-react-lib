@@ -8,8 +8,11 @@
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts"
   },
+  "devDependencies": {
+    "kill-port": "link:../node_modules/kill-port"
+  },
   "scripts": {
-    "start": "export PORT=8000 && node ../node_modules/react-scripts/bin/react-scripts.js start",
+    "start": "kill-port 8000 && export PORT=8000 && node ../node_modules/react-scripts/bin/react-scripts.js start",
     "build": "node ../node_modules/react-scripts/bin/react-scripts.js build",
     "test": "node ../node_modules/react-scripts/bin/react-scripts.js test"
   },

@@ -4,24 +4,15 @@ import image from "@rollup/plugin-image";
 import json from "@rollup/plugin-json";
 import resolve from "@rollup/plugin-node-resolve";
 import replaceStr from "@rollup/plugin-replace";
-import postcssUrl from "postcss-url";
 import terser from "@rollup/plugin-terser";
 import url from "@rollup/plugin-url";
-import { createFilter } from "@rollup/pluginutils";
 import autoprefixer from "autoprefixer";
+import cssnano from "cssnano";
 import fs from "fs";
-import path from "path";
+import postcssUrl from "postcss-url";
 import postcssPlugin from "rollup-plugin-postcss";
 const pkgURL = new URL("./package.json", import.meta.url);
 const pkg = JSON.parse(fs.readFileSync(pkgURL, "utf8"));
-const encodeImage = (filePath) => {
-  const ext = path.extname(filePath).toLowerCase();
-  const data = fs.readFileSync(filePath);
-  const encodeToBase64 = Buffer.from(data).toString("base64");
-  const svgPath = `data:image/svg+xml;base64,${encodeToBase64}`;
-  const otherPath = `data:image/${ext.substring(1)};base64,${encodeToBase64}`;
-  return ext === ".svg" ? svgPath : otherPath;
-};
 /**
  * @type {import('rollup').RollupOptions}
  */
@@ -73,40 +64,21 @@ const config = {
       emitFiles: true,
       fileName: "[name][hash][extname]",
     }),
-    terser({ compress: true }),
-    // {
-    //   name: "inline-css-scss",
-    //   transform(code, id) {
-    //     if (id.includes("node_modules")) return { code, map: null };
-    //     const filter = createFilter(["**/*.css", "**/*.scss"]);
-    //     if (!filter(id)) return { code, map: null };
-    //     if (!id.endsWith(".css") && !id.endsWith(".scss"))
-    //       return { map: null, code };
-    //     const regex = /url\("(.+?)"\)/g;
-    //     let match;
-    //     const baseDir = "src";
-    //     while ((match = regex.exec(code)) !== null) {
-    //       const imageUrl = match[1];
-    //       const imagePath = path.join(baseDir, imageUrl);
-    //       let dataUrl;
-    //       try {
-    //         dataUrl = encodeImage(imagePath);
-    //       } catch (error) {
-    //         this.error(`failed to inline ${imageUrl} at ${imagePath}`);
-    //       }
-    //       code = code.replace(imageUrl, `${dataUrl}`);
-    //     }
-    //     return {
-    //       map: null,
-    //       code,
-    //     };
-    //   },
-    // },
+    terser({
+      compress: true,
+      format: {
+        semicolons: true,
+      },
+    }),
     postcssPlugin({
-      plugins: [autoprefixer(), postcssUrl({ url: "inline" })],
-      extract: "index.scss",
-      minimize: true,
-      // sourceMap: true,
+      plugins: [
+        autoprefixer(),
+        postcssUrl({ url: "inline" }),
+        cssnano({ preset: "default" }),
+      ],
+      extract: true,
+      extensions: [".css", ".scss", ".less", ".stylus"],
+      // sourceMap: "inline",
     }),
     commonjs({
       transformMixedEsModules: true,
