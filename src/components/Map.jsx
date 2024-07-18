@@ -1,5 +1,5 @@
 import maplibregl from "maplibre-gl";
-import React,{ useEffect, useRef } from "react";
+import React,{useRef,useEffect} from "react";
 function Map() {
   const mapRef = useRef();
   useEffect(() => {

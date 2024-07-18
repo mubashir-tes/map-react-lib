@@ -5,16 +5,23 @@
   "dependencies": {
     "maplibre-gl-react-create": "link:../",
     "react": "link:../node_modules/react",
-    "react-dom": "link:../node_modules/react-dom",
-    "react-scripts": "link:../node_modules/react-scripts"
+    "react-dom": "link:../node_modules/react-dom"
   },
   "devDependencies": {
-    "kill-port": "link:../node_modules/kill-port"
+    "cross-env": "^7.0.3",
+    "kill-port": "^2.0.1",
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "kill-port 8000 && export PORT=8000 && node ../node_modules/react-scripts/bin/react-scripts.js start",
-    "build": "node ../node_modules/react-scripts/bin/react-scripts.js build",
-    "test": "node ../node_modules/react-scripts/bin/react-scripts.js test"
+    "start": "node start_example.mjs",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [

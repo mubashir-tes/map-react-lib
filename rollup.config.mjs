@@ -14,7 +14,7 @@ const pkgURL = new URL("./package.json", import.meta.url);
 const pkg = JSON.parse(fs.readFileSync(pkgURL, "utf8"));
 const sourcemap = process.env.SOURCEMAP === "true";
 /**
- * @type {import('rollup').RollupOptions}
+ * @type {import("rollup").RollupOptions}
  */
 const config = {
   input: "src/index.jsx",
@@ -34,13 +34,17 @@ const config = {
   plugins: [
     resolve({
       extensions: [".js", ".jsx"],
+      dedupe: ["react", "react-dom"],
     }),
     json({
       preferConst: true,
     }),
     babel({
       babelHelpers: "bundled",
-      presets: ["@babel/preset-react"],
+      presets: [
+        ["@babel/preset-react", { runtime: "classic" }],
+        "@babel/preset-env",
+      ],
       extensions: [".js", ".jsx"],
       exclude: /node_modules/,
       sourceMaps: sourcemap ? "inline" : false,
@@ -65,7 +69,7 @@ const config = {
         postcssUrl({ url: "inline" }),
         cssnano({ preset: "default" }),
       ],
-      extract: true,
+      extract: "index.css",
       extensions: [".css", ".scss", ".less", ".stylus"],
       sourceMap: sourcemap ? "inline" : false,
     }),
@@ -73,6 +77,7 @@ const config = {
       transformMixedEsModules: true,
       ignoreGlobal: true,
       sourceMap: sourcemap ? true : false,
+      include: /node_modules/,
     }),
     image(),
   ],
