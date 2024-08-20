@@ -1,7 +1,4 @@
 {
-  "name": "example",
-  "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "maplibre-gl-react-create": "link:../",
     "react": "link:../node_modules/react",

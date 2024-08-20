@@ -1,7 +1,7 @@
 import maplibregl from "maplibre-gl";
-import React,{useRef,useEffect} from "react";
+import React, { useEffect, useRef } from "react";
 function Map() {
-  const mapRef = useRef();
+  const mapRef = useRef(null);
   useEffect(() => {
     if (!mapRef.current) return;
     const initialMap = new maplibregl.Map({
@@ -10,8 +10,11 @@ function Map() {
       center: [0, 0], // starting position [lng, lat]
       zoom: 1, // starting zoom
     });
-    return () => {};
-  }, [mapRef]);
+    return () => {
+      if (initialMap) initialMap.remove();
+      if (mapRef.current) mapRef.current = null;
+    };
+  }, []);
   return (
     <div
       ref={mapRef}

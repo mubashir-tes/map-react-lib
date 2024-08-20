@@ -4,16 +4,27 @@
   "description": "React MapLibre-Gl Component",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
+  "umd": "dist/index.umd.js",
+  "types": "index.d.ts",
   "files": [
     "dist",
     "README.md"
   ],
   "scripts": {
-    "build": "yarn && rimraf dist && rollup -c",
-    "dev": "SOURCEMAP=true yarn && rimraf dist && rollup -c -w",
-    "prepublishOnly": "yarn && yarn build",
-    "start": "cd example && yarn && yarn start",
-    "clean:folder": "rimraf node_modules yarn.lock dist && yarn cache clean && (cd example && rimraf node_modules yarn.lock && yarn cache clean)"
+    "build": "run-s rollup:build",
+    "dev": "yarn && run-s set:sourcemap rollup:watch",
+    "lint": "yarn && eslint",
+    "lint:fix": "eslint --fix",
+    "prepublishOnly": "run-s build",
+    "start": "run-s install:example start:example",
+    "clean": "yarn && run-s clean:root clean:example",
+    "set:sourcemap": "cross-env SOURCEMAP=true",
+    "rollup:build": "rimraf dist && rollup -c",
+    "rollup:watch": "rimraf dist && rollup -c -w",
+    "install:example": "cd example && yarn",
+    "start:example": "cd example && yarn start",
+    "clean:root": "rimraf node_modules yarn.lock dist && yarn cache clean",
+    "clean:example": "cd example && rimraf node_modules yarn.lock && yarn cache clean"
   },
   "repository": {
     "type": "git",
@@ -23,7 +34,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "author": "",
-  "license": "ISC",
   "peerDependencies": {
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
@@ -42,6 +52,7 @@
   },
   "dependencies": {
     "antd": "^5.19.2",
+    "eslint-plugin-unicorn": "^55.0.0",
     "maplibre-gl": "^4.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -66,13 +77,14 @@
     "cross-env": "^7.0.3",
     "cssnano": "^7.0.4",
     "eslint": "^9.7.0",
-    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-promise": "^6.4.0",
+    "eslint-plugin-react": "^7.34.4",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.39",
     "postcss-url": "^10.1.3",
-    "rimraf": "^6.0.1",
+    "rimraf": "^5.0.10",
     "rollup": "^4.18.1",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.77.8",

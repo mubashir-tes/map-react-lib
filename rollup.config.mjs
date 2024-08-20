@@ -10,6 +10,7 @@ import cssnano from "cssnano";
 import fs from "fs";
 import postcssUrl from "postcss-url";
 import postcssPlugin from "rollup-plugin-postcss";
+import banner from "./banner.mjs";
 const pkgURL = new URL("./package.json", import.meta.url);
 const pkg = JSON.parse(fs.readFileSync(pkgURL, "utf8"));
 const sourcemap = process.env.SOURCEMAP === "true";
@@ -23,11 +24,21 @@ const config = {
       file: pkg.main,
       format: "cjs",
       sourcemap: sourcemap ? "inline" : false,
+      banner,
     },
     {
       file: pkg.module,
       format: "es",
       sourcemap: sourcemap ? "inline" : false,
+      banner,
+    },
+    {
+      file: pkg.umd,
+      format: "umd",
+      banner,
+      name: "MapReactGlCreate",
+      sourcemap: sourcemap ? "inline" : false,
+      globals: { react: "React", "react-dom": "ReactDOM" },
     },
   ],
   external: Object.keys(pkg.peerDependencies),
@@ -56,13 +67,7 @@ const config = {
         "process.env.NODE_ENV": JSON.stringify("production"),
       },
     }),
-    terser({
-      compress: true,
-      format: {
-        semicolons: true,
-      },
-      sourceMap: sourcemap ? true : false,
-    }),
+    terser(),
     postcssPlugin({
       plugins: [
         autoprefixer(),
